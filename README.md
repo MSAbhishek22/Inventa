@@ -1,5 +1,3 @@
-
-
 # 🛒 **Inventa – Voice-Enabled Inventory for Indian Grocery Stores**
 
 *A modern, intuitive way for India’s kirana shops & city marts to manage stock — hands-free, stress-free.*
@@ -103,11 +101,10 @@ Simple. Predictable. Reliable.
 
 ## 🧱 **Tech Stack (Clean & Practical)**
 
-* **Frontend:** React + TailwindCSS
-* **Backend:** FastAPI / Node.js
-* **Database:** SQLite / Firestore
+* **Frontend:** Next.js 15 (App Router), React, TypeScript
+* **Styling:** TailwindCSS, shadcn/ui components
 * **Voice Layer:** Custom STT/TTS pipeline
-* **Hosting:** Vercel / Firebase / Render
+* **Hosting:** Not yet deployed — run it locally (see How to Run below)
 
 ---
 
@@ -182,5 +179,15 @@ Manual work costs them time.
 > No typing. No training.
 > Just speak → and your work is done.
 
+---
 
-Just tell me.
+## ▶️ **How to Run**
+
+```bash
+git clone https://github.com/MSAbhishek22/Inventa.git
+cd Inventa
+npm install
+npm run dev
+```
+
+Then open `http://localhost:3000` in your browser.
