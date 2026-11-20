@@ -158,7 +158,26 @@ const inventoryItems = [
     description: "Chickpea curry masala (100g)",
     status: "good",
   },
+  {
+    id: 11,
+    name: "Sugar",
+    nameHindi: "चीनी",
+    category: "चीनी / Sugar",
+    quantity: 8,
+    unit: "kg",
+    threshold: 5,
+    mrp: 45,
+    sellingPrice: 42,
+    image: "🍬",
+    description: "Refined white sugar",
+    status: "good",
+  },
 ];
+
+/** Stock status from quantity vs the item's low-stock threshold.
+ *  Matches the seeded statuses: <= half the threshold is critical. */
+const statusFor = (quantity: number, threshold: number): string =>
+  quantity <= threshold / 2 ? "critical" : quantity <= threshold ? "low" : "good";
 
 export default function InventoryPage() {
   const [viewMode, setViewMode] = useState<"grid" | "list">("list");
@@ -166,11 +185,31 @@ export default function InventoryPage() {
   const [showVoiceUI, setShowVoiceUI] = useState(false);
   const [editingItem, setEditingItem] = useState<typeof inventoryItems[0] | null>(null);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const [items, setItems] = useState(inventoryItems);
 
-  const filteredItems = inventoryItems.filter((item) =>
+  const filteredItems = items.filter((item) =>
     item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     item.nameHindi.includes(searchQuery)
   );
+
+  /** Apply a voice/typed stock change (+add / -remove) and keep the
+   *  low-stock status (card border, badge, alert dot) in sync. */
+  const handleVoiceStockUpdate = (itemId: number, delta: number) => {
+    const item = items.find((it) => it.id === itemId);
+    setItems((prev) =>
+      prev.map((it) => {
+        if (it.id !== itemId) return it;
+        const quantity = Math.max(0, Math.round((it.quantity + delta) * 100) / 100);
+        return { ...it, quantity, status: statusFor(quantity, it.threshold) };
+      })
+    );
+    if (item) {
+      const newQty = Math.max(0, Math.round((item.quantity + delta) * 100) / 100);
+      if (newQty <= item.threshold) {
+        toast.warning(`स्टॉक कम है / Low stock: ${item.name} — सिर्फ ${newQty}${item.unit} बचा है`);
+      }
+    }
+  };
 
   const handleEdit = (item: typeof inventoryItems[0]) => {
     setEditingItem(item);
@@ -363,7 +402,12 @@ export default function InventoryPage() {
       </Button>
 
       {/* Voice Command UI */}
-      <VoiceCommandUI isOpen={showVoiceUI} onClose={() => setShowVoiceUI(false)} />
+      <VoiceCommandUI
+        isOpen={showVoiceUI}
+        onClose={() => setShowVoiceUI(false)}
+        items={items}
+        onApplyCommand={handleVoiceStockUpdate}
+      />
 
       {/* Edit/Add Item Sheet */}
       <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
