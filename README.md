@@ -2,6 +2,8 @@
 
 *A modern, intuitive way for India’s kirana shops & city marts to manage stock — hands-free, stress-free.*
 
+**🔗 Live app:** https://inventa-umber.vercel.app/ · **Inventory page:** https://inventa-umber.vercel.app/inventory
+
 ---
 
 ## 🌟 **Overview**
@@ -52,6 +54,8 @@ And Inventa handles the rest — updating stock, alerting low quantities, and lo
 
 Speak naturally in Hindi, Hinglish, or English.
 Inventa recognizes common grocery brands, units (kg, packet, litre), and local pronunciations.
+
+The mic understands the item and the quantity you say, and the stock number on the inventory page actually changes right away. If the updated quantity drops below that item's low-stock level, Inventa shows a low-stock warning for it.
 
 ### 📊 **Smart Analytics for Real Indian Retail**
 
@@ -104,7 +108,7 @@ Simple. Predictable. Reliable.
 * **Frontend:** Next.js 15 (App Router), React, TypeScript
 * **Styling:** TailwindCSS, shadcn/ui components
 * **Voice Layer:** Custom STT/TTS pipeline
-* **Hosting:** Not yet deployed — run it locally (see How to Run below)
+* **Hosting:** Live on Vercel — https://inventa-umber.vercel.app/
 
 ---
 
@@ -181,7 +185,9 @@ Manual work costs them time.
 
 ---
 
-## ▶️ **How to Run**
+## ▶️ **Run Locally (for developers)**
+
+Inventa is already live at https://inventa-umber.vercel.app/ — the steps below are only if you want to run the code on your own machine.
 
 ```bash
 git clone https://github.com/MSAbhishek22/Inventa.git
