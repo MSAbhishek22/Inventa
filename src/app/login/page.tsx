@@ -8,6 +8,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Mic, Store, Phone } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
+
+const Hero3D = dynamic(() => import("@/components/Hero3D"), { ssr: false });
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export default function LoginPage() {
@@ -42,6 +45,14 @@ export default function LoginPage() {
             <br />
             Manage your shop with voice commands
           </p>
+        </div>
+
+        <Hero3D />
+
+        <div className="grid gap-2 rounded-2xl border bg-card p-4 text-left text-sm">
+          <p><span className="font-semibold">Problem — </span>stock is counted from memory, and the shop runs out mid-day.</p>
+          <p><span className="font-semibold">Fix — </span>speak the stock in Hindi, English or Hinglish; Inventa keeps the count.</p>
+          <p><span className="font-semibold">Outcome — </span>shelves stay full, and nothing sells out unnoticed.</p>
         </div>
 
         <Card className="border-2 shadow-2xl">
